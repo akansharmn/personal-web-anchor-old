@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Channels">
+          <Key>
+            <PropertyRef Name="ChannelId" />
+          </Key>
+          <Property Name="ChannelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChannelName" Type="nvarchar(max)" />
+          <Property Name="CreatorName" Type="nvarchar(max)" />
+          <Property Name="PlatformName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Participants">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Playlists">
+          <Key>
+            <PropertyRef Name="PlaylistId" />
+          </Key>
+          <Property Name="PlaylistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaylistName" Type="nvarchar(max)" />
+          <Property Name="DomainPlaylistId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="domain" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlaylistVideo">
+          <Key>
+            <PropertyRef Name="PlaylistId" />
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="PlaylistId" Type="int" Nullable="false" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagName" />
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="TagName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="DateOfRegistartion" Type="datetime" Nullable="false" />
+          <Property Name="Domain" Type="nvarchar(max)" />
+          <Property Name="Username" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VideoLink" Type="nvarchar(max)" />
+          <Property Name="likes" Type="bigint" Nullable="false" />
+          <Property Name="dislikes" Type="bigint" Nullable="false" />
+          <Property Name="UploadedBy" Type="nvarchar(max)" />
+          <Property Name="UploadedDate" Type="datetime" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="WatchedDate" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="WatchCount" Type="int" Nullable="false" />
+          <Property Name="LastWatched" Type="datetime" Nullable="false" />
+          <Property Name="LastWatchOffset" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="VideoDuration" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DomainName" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__PlaylistV__Playl__451F3D2B">
+          <End Role="Playlists" Type="Self.Playlists" Multiplicity="1" />
+          <End Role="PlaylistVideo" Type="Self.PlaylistVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Playlists">
+              <PropertyRef Name="PlaylistId" />
+            </Principal>
+            <Dependent Role="PlaylistVideo">
+              <PropertyRef Name="PlaylistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlaylistV__Video__46136164">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1" />
+          <End Role="PlaylistVideo" Type="Self.PlaylistVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="PlaylistVideo">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Participants_dbo_Videos_VideoId">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="Participants">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Tags_dbo_Videos_VideoId">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="Tags">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Videos_dbo_Users_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="masterModelStoreContainer">
+          <EntitySet Name="Channels" EntityType="Self.Channels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participants" EntityType="Self.Participants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Playlists" EntityType="Self.Playlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaylistVideo" EntityType="Self.PlaylistVideo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PlaylistV__Playl__451F3D2B" Association="Self.FK__PlaylistV__Playl__451F3D2B">
+            <End Role="Playlists" EntitySet="Playlists" />
+            <End Role="PlaylistVideo" EntitySet="PlaylistVideo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlaylistV__Video__46136164" Association="Self.FK__PlaylistV__Video__46136164">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="PlaylistVideo" EntitySet="PlaylistVideo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Participants_dbo_Videos_VideoId" Association="Self.FK_dbo_Participants_dbo_Videos_VideoId">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="Participants" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tags_dbo_Videos_VideoId" Association="Self.FK_dbo_Tags_dbo_Videos_VideoId">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Videos_dbo_Users_UserId" Association="Self.FK_dbo_Videos_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="masterEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="GetUserById" ReturnType="Collection(String)">
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetVideoUsingLink">
+          <Parameter Name="url" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserById1">
+          <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Users" EntityType="masterModel.User" />
+          <EntitySet Name="Videos" EntityType="masterModel.Video" />
+          <AssociationSet Name="FK_dbo_Videos_dbo_Users_UserId" Association="masterModel.FK_dbo_Videos_dbo_Users_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
+          <EntitySet Name="Participants" EntityType="masterModel.Participant" />
+          <EntitySet Name="Tags" EntityType="masterModel.Tag" />
+          <AssociationSet Name="FK_dbo_Participants_dbo_Videos_VideoId" Association="masterModel.FK_dbo_Participants_dbo_Videos_VideoId">
+            <End Role="Video" EntitySet="Videos" />
+            <End Role="Participant" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tags_dbo_Videos_VideoId" Association="masterModel.FK_dbo_Tags_dbo_Videos_VideoId">
+            <End Role="Video" EntitySet="Videos" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <EntitySet Name="Channels" EntityType="masterModel.Channel" />
+          <EntitySet Name="Playlists" EntityType="masterModel.Playlist" />
+          <AssociationSet Name="PlaylistVideo" Association="masterModel.PlaylistVideo">
+            <End Role="Playlist" EntitySet="Playlists" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfRegistartion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Domain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Videos" Relationship="masterModel.FK_dbo_Videos_dbo_Users_UserId" FromRole="User" ToRole="Video" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="likes" Type="Int64" Nullable="false" />
+          <Property Name="dislikes" Type="Int64" Nullable="false" />
+          <Property Name="UploadedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UploadedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="WatchedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WatchCount" Type="Int32" Nullable="false" />
+          <Property Name="LastWatched" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastWatchOffset" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="VideoDuration" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DomainName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="masterModel.FK_dbo_Videos_dbo_Users_UserId" FromRole="Video" ToRole="User" />
+          <NavigationProperty Name="Participants" Relationship="masterModel.FK_dbo_Participants_dbo_Videos_VideoId" FromRole="Video" ToRole="Participant" />
+          <NavigationProperty Name="Tags" Relationship="masterModel.FK_dbo_Tags_dbo_Videos_VideoId" FromRole="Video" ToRole="Tag" />
+          <NavigationProperty Name="Playlists" Relationship="masterModel.PlaylistVideo" FromRole="Video" ToRole="Playlist" />
+        </EntityType>
+        <Association Name="FK_dbo_Videos_dbo_Users_UserId">
+          <End Type="masterModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="masterModel.Video" Role="Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Video">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Video" Relationship="masterModel.FK_dbo_Participants_dbo_Videos_VideoId" FromRole="Participant" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagName" />
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="TagName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Video" Relationship="masterModel.FK_dbo_Tags_dbo_Videos_VideoId" FromRole="Tag" ToRole="Video" />
+        </EntityType>
+        <Association Name="FK_dbo_Participants_dbo_Videos_VideoId">
+          <End Type="masterModel.Video" Role="Video" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="masterModel.Participant" Role="Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Tags_dbo_Videos_VideoId">
+          <End Type="masterModel.Video" Role="Video" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="masterModel.Tag" Role="Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="Tag">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="ChannelId" />
+          </Key>
+          <Property Name="ChannelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PlatformName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Playlist">
+          <Key>
+            <PropertyRef Name="PlaylistId" />
+          </Key>
+          <Property Name="PlaylistId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaylistName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DomainPlaylistId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Videos" Relationship="masterModel.PlaylistVideo" FromRole="Playlist" ToRole="Video" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="domain" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="PlaylistVideo">
+          <End Type="masterModel.Playlist" Role="Playlist" Multiplicity="*" />
+          <End Type="masterModel.Video" Role="Video" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities" >
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="masterModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
+                <ScalarProperty Name="DateOfRegistartion" ColumnName="DateOfRegistartion" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="masterModel.Video">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DomainName" ColumnName="DomainName" />
+                <ScalarProperty Name="VideoDuration" ColumnName="VideoDuration" />
+                <ScalarProperty Name="LastWatchOffset" ColumnName="LastWatchOffset" />
+                <ScalarProperty Name="LastWatched" ColumnName="LastWatched" />
+                <ScalarProperty Name="WatchCount" ColumnName="WatchCount" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="WatchedDate" ColumnName="WatchedDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+                <ScalarProperty Name="dislikes" ColumnName="dislikes" />
+                <ScalarProperty Name="likes" ColumnName="likes" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participants">
+            <EntityTypeMapping TypeName="masterModel.Participant">
+              <MappingFragment StoreEntitySet="Participants">
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="masterModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Channels">
+            <EntityTypeMapping TypeName="masterModel.Channel">
+              <MappingFragment StoreEntitySet="Channels">
+                <ScalarProperty Name="PlatformName" ColumnName="PlatformName" />
+                <ScalarProperty Name="CreatorName" ColumnName="CreatorName" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Playlists">
+            <EntityTypeMapping TypeName="masterModel.Playlist">
+              <MappingFragment StoreEntitySet="Playlists">
+                <ScalarProperty Name="domain" ColumnName="domain" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DomainPlaylistId" ColumnName="DomainPlaylistId" />
+                <ScalarProperty Name="PlaylistName" ColumnName="PlaylistName" />
+                <ScalarProperty Name="PlaylistId" ColumnName="PlaylistId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PlaylistVideo" TypeName="masterModel.PlaylistVideo" StoreEntitySet="PlaylistVideo">
+            <EndProperty Name="Video">
+              <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+            </EndProperty>
+            <EndProperty Name="Playlist">
+              <ScalarProperty Name="PlaylistId" ColumnName="PlaylistId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

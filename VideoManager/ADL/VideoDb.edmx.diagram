@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cd3a998166624fc5990bca9b3d3738e2" Name="Diagram1" >
+        <EntityTypeShape EntityType="masterModel.User" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="masterModel.Video" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="masterModel.FK_dbo_Videos_dbo_Users_UserId" />
+        <EntityTypeShape EntityType="masterModel.Participant" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="masterModel.Tag" Width="1.5" PointX="5.25" PointY="3.625" />
+        <AssociationConnector Association="masterModel.FK_dbo_Participants_dbo_Videos_VideoId" />
+        <AssociationConnector Association="masterModel.FK_dbo_Tags_dbo_Videos_VideoId" />
+        <EntityTypeShape EntityType="masterModel.Channel" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="masterModel.Playlist" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="masterModel.PlaylistVideo" />
+      </Diagram>
+      <Diagram DiagramId="9c91463286294ef0bf895b5118b097e5" Name="Diagram2" />
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

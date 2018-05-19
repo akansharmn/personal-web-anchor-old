@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADL", "ADL\ADL.csproj", "{B70810E5-8C63-47E7-B1B0-B23CE1FF3360}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{C9D78D96-D67D-4AE0-BBDF-FBF4990E1A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoManagerService", "VideoManagerService\VideoManagerService.csproj", "{31396BF9-8C79-4FC4-A27D-30A27AA0D872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{9C4980F3-5F13-4382-A137-5EC6DA76438C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoManagerUnitTest", "VideoManagerUnitTest\VideoManagerUnitTest.csproj", "{BFDC8806-3E25-4974-9D5B-4E1ACC0BB3FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Diagrams", "Project Diagrams", "{ACB44C16-1DE1-4244-A1B0-488F75E49484}"
+	ProjectSection(SolutionItems) = preProject
+		Visio\Architecture diagram2.vsdx = Visio\Architecture diagram2.vsdx
+		Visio\DatabaseDiagram.jpg = Visio\DatabaseDiagram.jpg
+		Visio\ProcessFlow Diagram.vsdx = Visio\ProcessFlow Diagram.vsdx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B70810E5-8C63-47E7-B1B0-B23CE1FF3360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70810E5-8C63-47E7-B1B0-B23CE1FF3360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70810E5-8C63-47E7-B1B0-B23CE1FF3360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70810E5-8C63-47E7-B1B0-B23CE1FF3360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9D78D96-D67D-4AE0-BBDF-FBF4990E1A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D78D96-D67D-4AE0-BBDF-FBF4990E1A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D78D96-D67D-4AE0-BBDF-FBF4990E1A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D78D96-D67D-4AE0-BBDF-FBF4990E1A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31396BF9-8C79-4FC4-A27D-30A27AA0D872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31396BF9-8C79-4FC4-A27D-30A27AA0D872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31396BF9-8C79-4FC4-A27D-30A27AA0D872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31396BF9-8C79-4FC4-A27D-30A27AA0D872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C4980F3-5F13-4382-A137-5EC6DA76438C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4980F3-5F13-4382-A137-5EC6DA76438C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4980F3-5F13-4382-A137-5EC6DA76438C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4980F3-5F13-4382-A137-5EC6DA76438C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDC8806-3E25-4974-9D5B-4E1ACC0BB3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDC8806-3E25-4974-9D5B-4E1ACC0BB3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDC8806-3E25-4974-9D5B-4E1ACC0BB3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDC8806-3E25-4974-9D5B-4E1ACC0BB3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {158680A9-6624-49CA-9376-9F68C48237C1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,88 @@
+
+
+CREATE TABLE "Users"(
+	[UserId] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	[Email] nvarchar(60)NOT  NULL,
+	[DateOfRegistartion] datetime NOT NULL,
+	[Domain] nvarchar(60) NULL,
+	[Username] nvarchar(20) NULL)
+ 
+
+
+
+
+CREATE TABLE "Videos"(
+	VideoId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	VideoLink nvarchar(60) NULL,
+	likes bigint,
+	dislikes BIGINT,
+	UploadedBy nvarchar(60),
+	UploadedDate datetime,
+	Category integer,
+	WatchedDate datetime,
+	Title nvarchar(60),
+	WatchCount int,
+	LastWatched datetime
+	LastWatchOffset decimal(18, 2) ,
+	VideoDuration decimal(18, 2) NOT NULL,
+	DomainName [nvarchar](60) ,
+	UserId [int] ,
+         foreign key (UserId) references Users(UserId)) 
+ 
+
+
+
+
+
+
+
+
+
+CREATE TABLE [Tags](
+	[TagName] [nvarchar](128) NOT NULL,
+	[VideoId] [int] NOT NULL,
+         primary key (TagName, VideoId),
+         foreign key (VideoId) references Videos(VideoId))
+
+        
+ 
+
+CREATE TABLE [Playlists](
+	[PlaylistId] integer primary key autoincrement not null,
+	[PlaylistName] [nvarchar](60) not NULL,
+	[DomainPlaylistId] [int] NOT NULL,
+	[Description] [nvarchar](200) NULL,
+	[username] [varchar](20) NOT NULL,
+	[domain] [varchar](20) NOT NULL,
+        foreign key (username) references users(Username))
+
+
+
+
+CREATE TABLE "PlaylistVideo"(
+	[PlaylistId] [int] NOT NULL,
+	[VideoId] [int] NOT NULL,
+        primary key (PlaylistId, VideoId),
+        foreign key (playlistid) references Playlists(PlaylistId),
+        foreign key (VideoId) references Videos(VideoId))    
+
+
+
+
+
+CREATE TABLE "Participants"(
+	[Name] [nvarchar](128) NOT NULL,
+	[VideoId] [int] NOT NULL,
+ primary key (name, videoid)
+ foreign key (videoid) references videos(videoid))
+
+
+
+CREATE TABLE "Channels"(
+	[ChannelId] integer primary key autoincrement not null,
+	[ChannelName] [nvarchar](60) NULL,
+	[CreatorName] [nvarchar](100) NULL,
+	[PlatformName] [nvarchar](100) NULL)
+
+
+

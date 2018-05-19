@@ -1,0 +1,2 @@
+create table Video(VideoId int primary key, Title text not null, UploadSite text not null, UploadedBy text, Watched bool);
+sqlite> create table Download(DownloadId int primary key, VideoId int not null, DownloadSuccessful bool, DownloadSize text, DownloadPath text, VideoFormat text, DateDownloaded DateTime, foreign key(VideoId) references Video(VideoId));
