@@ -1,0 +1,852 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: VideoManagerService
+  description: >-
+    This is a service which helps a user organize and manage the online contents
+    wattched. This can help the user to personalize them by adding their, tags,
+    notes, comments to the contents as well as sharing them to other users. This
+    service will be further integrated with a browser plugin to enable users
+    access this service with ease.
+  contact:
+    name: Akansha Raman
+    url: 'http://videomanagerserviceapp.azurewebsites.net'
+    email: akansha.raman23@gmail.com
+host: videomanagerserviceapp.azurewebsites.net
+schemes:
+  - http
+  - https
+paths:
+  '/api/Playlist/{user}/{name}':
+    get:
+      tags:
+        - Playlists
+      summary: Gets a playlist of a user
+      operationId: Playlists_GetPlaylist
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: user
+          in: path
+          description: username
+          required: true
+          type: string
+        - name: name
+          in: path
+          description: playlist name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PlaylistModel'
+  '/api/Playlists/{user}':
+    get:
+      tags:
+        - Playlists
+      summary: Gets playlist of a user
+      operationId: Playlists_GetPlaylists
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: user
+          in: path
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PlaylistModel'
+  /api/Playlist:
+    get:
+      tags:
+        - Playlists
+      summary: gets list of playlist in which a video is saved
+      operationId: Playlists_GetPlaylistsOfVideo
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: videoLink
+          in: query
+          description: link of video to be searched
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PlaylistModel'
+    post:
+      tags:
+        - Playlists
+      summary: Creates playlist for a user
+      operationId: Playlists_PostPlaylist
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: name
+          in: query
+          description: name of playlist
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+        - name: domain
+          in: query
+          description: domain of the playlist
+          required: true
+          type: string
+        - name: description
+          in: query
+          description: '"description of playlist'
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+    delete:
+      tags:
+        - Playlists
+      summary: Deletes a playlist of a user
+      operationId: Playlists_DeletePlaylist
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: name
+          in: query
+          description: the name of the playlist
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  /api/Tags:
+    get:
+      tags:
+        - Tags
+      summary: Returns tags in a video
+      operationId: Tags_GetTagsInVideo
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: videoLink
+          in: query
+          description: link of video
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              type: string
+    post:
+      tags:
+        - Tags
+      summary: Adds tags to a video
+      operationId: Tags_AddTagToVideo
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: tags
+          in: body
+          description: a list of tags
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: videoLink
+          in: query
+          description: link of video
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+    delete:
+      tags:
+        - Tags
+      summary: Removes tags from a video
+      operationId: Tags_RemoveTagFromVideo
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: tags
+          in: body
+          description: list of tags
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: videoLink
+          in: query
+          description: video link
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: user name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/User/{username}':
+    get:
+      tags:
+        - User
+      summary: Returns a user
+      operationId: User_GetUser
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: username
+          in: path
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  /api/User:
+    post:
+      tags:
+        - User
+      summary: creates a user
+      operationId: User_PostUser
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: user
+          in: body
+          description: username
+          required: true
+          schema:
+            $ref: '#/definitions/UserModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserModel'
+    delete:
+      tags:
+        - User
+      summary: Deletes a user
+      operationId: User_DeleteUser
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/Videos/{uname}':
+    get:
+      tags:
+        - Videos
+      summary: Returns the list of videos of a user
+      operationId: Videos_GetVideos
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: uname
+          in: path
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  /api/GetVideoByTitle:
+    get:
+      tags:
+        - Videos
+      summary: Gets videos by title
+      operationId: Videos_GetVideoByTitle
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: title
+          in: query
+          description: title of video
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: usernaem of the user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VideoModel'
+  /api/Video/People:
+    get:
+      tags:
+        - Videos
+      summary: Gets videos with any person in the list
+      operationId: Videos_GetVideosWithPeople
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: people
+          in: query
+          description: list of persons to be searched
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: username
+          in: query
+          description: username of user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  /api/Video/AllTags:
+    get:
+      tags:
+        - Videos
+      summary: Gets videos which has all the tags from the list
+      operationId: Videos_GetVideosWithAllTags
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: tags
+          in: query
+          description: list of tags
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: user
+          in: query
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  /api/Video/AnyTag:
+    get:
+      tags:
+        - Videos
+      summary: Returns videos which has evena single tag from the list
+      operationId: Videos_GetVideosWithAnyTag
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: tags
+          in: query
+          description: the list of tags to be searched
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: user
+          in: query
+          description: username of the user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  /api/Video/Category:
+    get:
+      tags:
+        - Videos
+      summary: gets videos with a category
+      operationId: Videos_GetVideosWithCategory
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: categoryModels
+          in: query
+          description: the category of videos to be searched
+          required: true
+          type: array
+          items:
+            type: string
+            enum:
+              - Movie
+              - Trailer
+              - Audio
+              - Video
+          collectionFormat: multi
+        - name: user
+          in: query
+          description: username of the user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  '/api/Videos/playlist/{playlist}/{user}':
+    get:
+      tags:
+        - Videos
+      summary: Gets videos of a playlist
+      operationId: Videos_GetVideosInPlayList
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: playlist
+          in: path
+          description: name of playlist
+          required: true
+          type: string
+        - name: user
+          in: path
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  /api/VideoByLink:
+    get:
+      tags:
+        - Videos
+      summary: Gets a video by link
+      operationId: Videos_GetVideoByLink
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: link
+          in: query
+          description: link of video to be searched
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: the username of user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VideoModel'
+  /api/Video:
+    post:
+      tags:
+        - Videos
+      summary: Create a video for user
+      operationId: Videos_PostVideo
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: videoModel
+          in: body
+          description: the video to be created
+          required: true
+          schema:
+            $ref: '#/definitions/VideoModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+    patch:
+      tags:
+        - Videos
+      summary: Updates a video
+      operationId: Videos_PatchVideo
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: link
+          in: query
+          description: link of video to be updated
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: the user for which video has to be updated
+          required: true
+          type: string
+        - name: videoModel
+          in: body
+          description: the changes which have to be done
+          required: true
+          schema:
+            $ref: '#/definitions/VideoModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VideoModel'
+  /api/Videos/AddToPlaylist:
+    post:
+      tags:
+        - Videos
+      operationId: Videos_AddVideoToPlaylist
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: playlist
+          in: query
+          required: true
+          type: string
+        - name: username
+          in: query
+          required: true
+          type: string
+        - name: link
+          in: body
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  /api/Videos:
+    delete:
+      tags:
+        - Videos
+      summary: Deletes a video of a user
+      operationId: Videos_DeleteVideo
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: link
+          in: query
+          description: link of the video to be deleted
+          required: true
+          type: string
+        - name: user
+          in: query
+          description: the user for which video has to be deleted
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+definitions:
+  PlaylistModel:
+    type: object
+    properties:
+      links:
+        type: array
+        items:
+          $ref: '#/definitions/Link'
+      PlaylistName:
+        type: string
+      PlaylistId:
+        format: int32
+        type: integer
+      DomainPlaylistId:
+        format: int32
+        type: integer
+      Description:
+        type: string
+  Link:
+    type: object
+    properties:
+      Rel:
+        type: string
+      Method:
+        type: string
+      link:
+        type: string
+  UserModel:
+    required:
+      - UserId
+      - Email
+    type: object
+    properties:
+      Username:
+        type: string
+      UserId:
+        format: int32
+        type: integer
+      Email:
+        type: string
+      DateOfRegistartion:
+        format: date-time
+        type: string
+      Domain:
+        type: string
+  VideoModel:
+    required:
+      - VideoLink
+    type: object
+    properties:
+      links:
+        type: array
+        items:
+          $ref: '#/definitions/Link'
+      VideoId:
+        format: int32
+        type: integer
+      VideoLink:
+        type: string
+      likes:
+        format: int64
+        type: integer
+      dislikes:
+        format: int64
+        type: integer
+      UploadedBy:
+        type: string
+      UploadedDate:
+        format: date-time
+        type: string
+      Category:
+        enum:
+          - Movie
+          - Trailer
+          - Audio
+          - Video
+        type: string
+      WatchedDate:
+        format: date-time
+        type: string
+      Title:
+        type: string
+      WatchCount:
+        format: int32
+        type: integer
+      LastWatched:
+        format: date-time
+        type: string
+      LastWatchOffset:
+        format: double
+        type: number
+      VideoDuration:
+        format: double
+        type: number
+      DomainName:
+        type: string
+      Username:
+        type: string
+securityDefinitions:
+  basic:
+    type: basic
+    description: Basic HTTP Authentication
