@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "2c54773e-36ac-45a1-8abb-6e15873ccbbb",
+		"name": "WebDiary",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NewWebDiary",
+			"description": null,
+			"item": []
+		},
+		{
+			"name": "http://localhost:64693/api/VideoByLink?link=youtube.com%2Ftest&user=testuser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:64693/api/VideoByLink?link=youtube.com%2Ftest&user=testuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "64693",
+					"path": [
+						"api",
+						"VideoByLink"
+					],
+					"query": [
+						{
+							"key": "link",
+							"value": "youtube.com%2Ftest"
+						},
+						{
+							"key": "user",
+							"value": "testuser"
+						}
+					]
+				},
+				"description": "Get Videos"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44381/api/auth/token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"Username\" : \"superuser\",\n\"Password\" : \"Password@123\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44381/api/auth/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44381",
+					"path": [
+						"api",
+						"auth",
+						"token"
+					]
+				},
+				"description": "GetToken for authorization and authentication"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44381/api/Users/testuser",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdXBlclVzZXIiOiJUcnVlIiwiUmVhZGVyIjoiVHJ1ZSIsIldyaXRlciI6IlRydWUiLCJleHAiOjE1MjY3NTA5NjAsImlzcyI6Imlzc3VlciIsImF1ZCI6ImF1ZGllbmNlIn0.RBxJgNpXo9vxBsxaQa8jYuY4SmiDIluwC1iLA8NuCO4"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\"Name\": \"Hudson\",\n        \"Description\": \"Hudson\"}"
+				},
+				"url": {
+					"raw": "https://localhost:44381/api/Users/testuser",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44381",
+					"path": [
+						"api",
+						"Users",
+						"testuser"
+					]
+				},
+				"description": "GetUser"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:59019/Home/Index/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:59019/Home/Index/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "59019",
+					"path": [
+						"Home",
+						"Index",
+						"1"
+					]
+				},
+				"description": "Cookie based authentication"
+			},
+			"response": []
+		}
+	]
+}

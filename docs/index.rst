@@ -10,7 +10,7 @@ Welcome to VideoManagerService's documentation!
    :maxdepth: 2
    :caption: Contents:
    
-   overview/index.rst
+   overview/index
 
 
 Indices and tables
