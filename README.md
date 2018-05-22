@@ -51,5 +51,5 @@ Another version, which is cross-platform is available at - https://github.com/ak
 ## API Documentation
 API documentation is available at -
 https://akansharmn.github.io/personal-web-anchor-old/
-https://github.com/akansharmn/personal-web-anchor-old/tree/master/VideoManager/docs.html
+https://github.com/akansharmn/personal-web-anchor-old/blob/master/docs.html
 
