@@ -45,6 +45,8 @@ namespace Models
 
         public string Username { get; set; }
 
+        public string DomainName { get; set; }
+
        
     }
 }

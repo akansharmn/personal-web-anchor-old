@@ -9,7 +9,7 @@ This project maintains a web diary of user's online web activities. Currently on
 The user when laters visits that video page, he will be able to view all these informations. There are two parts to this project - A browser extension to help a user view all the information he stored while browsing videos and a backedn API to support it.
 This repository conatins a Restful Web API implemented in ASP.Net backed up by SQLite databse to store all the information.
 
-##WHY?
+## WHY?
 
 * A centralized place to view all the web contents and information associated with it stored by the user.
 * The information is stored offline and can be browsed anytime.
@@ -48,6 +48,8 @@ Another version, which is cross-platform is available at - https://github.com/ak
 
 
 
-##API Documentation
+## API Documentation
 API documentation is available at -
 https://akansharmn.github.io/personal-web-anchor-old/
+https://github.com/akansharmn/personal-web-anchor-old/tree/master/VideoManager/docs.html
+
